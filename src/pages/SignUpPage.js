@@ -1,7 +1,10 @@
 import React from "react";
+import { SignUpForm } from "../components/signup";
 
 export const SignUpPage = () => {
-  return <div>SignUpPage</div>;
+  return (
+    <div>
+      <SignUpForm />
+    </div>
+  );
 };
-
-    

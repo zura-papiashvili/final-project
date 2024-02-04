@@ -1,8 +1,8 @@
-import { Button as MUIButton } from "@mui/material/Button";
+import { Button as MUIButton } from "@mui/material";
 
-export const Button = (children, onClick) => {
+export const Button = ({ children, onClick, disabled }) => {
   return (
-    <MUIButton onClick={onClick} variant="contained" color="primary">
+    <MUIButton onClick={onClick} disabled={disabled}>
       {children}
     </MUIButton>
   );

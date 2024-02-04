@@ -25,7 +25,7 @@ export const Input = ({
       value={value}
       placeholder={placeholder}
       sx={{
-        width: 20,
+        width: 200,
         marginTop: 5,
         "& fieldset": {
           borderRadius: `20px`,
