@@ -3,6 +3,9 @@ import { LoginFormValidationSchema } from "./LoginFormValidation";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormContainer, Input, Button } from "../atoms";
+import { useDispatch } from "react-redux";
+import { authenticateUser } from "../../redux/";
+import { useNavigate } from "react-router-dom";
 
 export const LoginForm = () => {
   const {
@@ -13,9 +16,18 @@ export const LoginForm = () => {
     mode: "onChange",
     resolver: yupResolver(LoginFormValidationSchema),
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(authenticateUser({ formValues: data, isLogin: true }))
+      .unwrap()
+      .then((data) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <FormContainer>

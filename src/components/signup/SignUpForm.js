@@ -3,19 +3,31 @@ import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { signUpFormValidationSchema } from "./SignUpFormValidation";
 import { Button, FormContainer, Input } from "../atoms";
+import { useDispatch } from "react-redux";
+import { authenticateUser } from "../../redux/";
+import { useNavigate } from "react-router-dom";
 
 export const SignUpForm = () => {
   const {
-    handleSubmit,
     control,
+    handleSubmit,
     formState: { errors, isValid },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(signUpFormValidationSchema),
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(authenticateUser({ formValues: data, isLogin: false }))
+      .unwrap()
+      .then((data) => {
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -25,11 +37,11 @@ export const SignUpForm = () => {
         control={control}
         defaultValue=""
         render={({ field }) => {
-          const { name, onchange } = field;
+          const { name, onChange } = field;
           return (
             <Input
               name={name}
-              onChange={onchange}
+              onChange={onChange}
               label="First Name"
               error={Boolean(errors.firstName)}
               helperText={errors.firstName?.message}
@@ -42,11 +54,11 @@ export const SignUpForm = () => {
         control={control}
         defaultValue=""
         render={({ field }) => {
-          const { name, onchange } = field;
+          const { name, onChange } = field;
           return (
             <Input
               name={name}
-              onChange={onchange}
+              onChange={onChange}
               label="Last Name"
               error={Boolean(errors.lastName)}
               helperText={errors.lastName?.message}
@@ -59,11 +71,11 @@ export const SignUpForm = () => {
         control={control}
         defaultValue=""
         render={({ field }) => {
-          const { name, onchange } = field;
+          const { name, onChange } = field;
           return (
             <Input
               name={name}
-              onChange={onchange}
+              onChange={onChange}
               label="Email"
               error={Boolean(errors.email)}
               helperText={errors.email?.message}
@@ -76,11 +88,11 @@ export const SignUpForm = () => {
         control={control}
         defaultValue=""
         render={({ field }) => {
-          const { name, onchange } = field;
+          const { name, onChange } = field;
           return (
             <Input
               name={name}
-              onChange={onchange}
+              onChange={onChange}
               label="Password"
               type="password"
               error={Boolean(errors.password)}
