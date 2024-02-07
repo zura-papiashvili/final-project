@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, FormContainer } from "../../atoms";
 import { Controller, useForm } from "react-hook-form";
 import { Input } from "../../atoms";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { productFormValidationSchema } from "./ProductFormValidation";
 import { useTranslation } from "react-i18next";
+import FileBase64 from "react-file-base64";
+import { useDispatch } from "react-redux";
+import { saveProduct } from "../../../redux";
+import { useNavigate } from "react-router-dom";
 
 export const ProductForm = () => {
   const {
@@ -15,7 +19,25 @@ export const ProductForm = () => {
     mode: "onChange",
     resolver: yupResolver(productFormValidationSchema),
   });
+  const [image, setImage] = useState("");
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const onSubmit = (data) => {
+    dispatch(
+      saveProduct({
+        ...data,
+        image,
+      })
+        .unwrap()
+        .then(() => {
+          navigate("/products");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        })
+    );
+  };
   return (
     <FormContainer>
       <Controller
@@ -99,7 +121,14 @@ export const ProductForm = () => {
           );
         }}
       />
-      <Button onClick={handleSubmit(() => {})} disabled={!isValid}>
+      <FileBase64
+        type="file"
+        multiple={false}
+        onDone={({ base64 }) => {
+          setImage(base64);
+        }}
+      />
+      <Button onClick={handleSubmit(onSubmit)} disabled={!isValid}>
         {t("save_button")}
       </Button>
     </FormContainer>
