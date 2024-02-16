@@ -1,6 +1,7 @@
-import { Box, Card, Grid, styled } from "@mui/material";
+import { Box, Card, CardActions, Grid, styled } from "@mui/material";
 import React from "react";
 import { Text } from "../../atoms";
+import { ProductCardActions } from "./ProductCardActions";
 
 const StyledImage = styled("img")(() => ({
   objectFit: "cover",
@@ -17,7 +18,7 @@ const StyledInfoContainer = styled(Box)(() => ({
 export const ProductCard = ({ product }) => {
   const { image, name, price, _id, brand, category } = product;
   return (
-    <Grid item xs={12} sm={12} md={4} lg={3}>
+    <Grid item xs={10} sm={8} md={4} lg={3}>
       <Card
         sx={{
           borderRadius: 8,
@@ -28,6 +29,14 @@ export const ProductCard = ({ product }) => {
           <Text>{name}</Text>
           <Text>${price}</Text>
         </StyledInfoContainer>
+        <CardActions
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <ProductCardActions product={product} />
+        </CardActions>
       </Card>
     </Grid>
   );

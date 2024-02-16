@@ -3,11 +3,12 @@ import { axiosInstance } from "../../helpers";
 
 export const saveProduct = createAsyncThunk(
   "product/saveProduct",
-  async (product, { rejectWithValue }) => {
+  async ({ product, productId }, { rejectWithValue, dispatch }) => {
     try {
-      const method = "post";
-      const endpoint = "/products";
+      const method = productId ? "put" : "post";
+      const endpoint = productId ? `/products/${productId}` : "/products";
       const { data } = await axiosInstance[method](endpoint, { product });
+      dispatch(fetchHomePageProducts());
       return data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -28,6 +29,20 @@ export const fetchHomePageProducts = createAsyncThunk(
     }
   }
 );
+export const deleteProduct = createAsyncThunk(
+  "product/deleteProduct",
+  async ({ productId }, { dispatch, rejectWithValue }) => {
+    try {
+      const method = "delete";
+      const endpoint = `/products/${productId}`;
+      const { data } = await axiosInstance[method](endpoint);
+      dispatch(fetchHomePageProducts());
+      return data;
+    } catch (error) {
+      return rejectWithValue("Error deleting product");
+    }
+  }
+);
 
 const productSlice = createSlice({
   name: "product",
@@ -36,6 +51,12 @@ const productSlice = createSlice({
     loading: false,
     error: null,
     homePageProducts: [],
+    selectedProduct: null,
+  },
+  reducers: {
+    setSelectedProduct(state, action) {
+      state.selectedProduct = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(saveProduct.pending, (state) => {
@@ -61,7 +82,20 @@ const productSlice = createSlice({
       state.error = action.payload;
       state.loading = false;
     });
+
+    // deleteProduct
+    builder.addCase(deleteProduct.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
+      state.loading = false;
+    });
+    builder.addCase(deleteProduct.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
   },
 });
 
+export const { setSelectedProduct } = productSlice.actions;
 export const productReducer = productSlice.reducer;

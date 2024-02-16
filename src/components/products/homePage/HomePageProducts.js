@@ -1,7 +1,6 @@
 import React from "react";
 import { LoadingWrapper } from "../../atoms";
 import { GridContainer, ProductCard } from "../shared";
-import { useSelector } from "react-redux";
 import { useProduct } from "../../../hooks";
 
 export const HomePageProducts = () => {
