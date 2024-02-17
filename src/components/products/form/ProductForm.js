@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { productFormValidationSchema } from "./ProductFormValidation";
 import { useTranslation } from "react-i18next";
 import FileBase64 from "react-file-base64";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { saveProduct, setSelectedProduct } from "../../../redux";
 import { useNavigate } from "react-router-dom";
 import { useProduct } from "../../../hooks";
