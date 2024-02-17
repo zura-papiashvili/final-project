@@ -5,6 +5,7 @@ import {
   LoginPage,
   ProductFormPage,
   SignUpPage,
+  SingleProductPage,
 } from "../pages";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { useSelector } from "react-redux";
@@ -21,6 +22,10 @@ export const RoutesComponent = () => {
       <Route
         path="/products/categories/:category"
         element={<CategoryProductsPage />}
+      />
+      <Route
+        path="/products/categories/:category/:id"
+        element={<SingleProductPage />}
       />
       <Route
         path="/products/add"
