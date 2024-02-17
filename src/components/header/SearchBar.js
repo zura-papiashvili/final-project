@@ -14,7 +14,6 @@ export const SearchBar = () => {
   const debouncedSearch = useDebounce(500, searchValue);
   const { getData, loading, data, setState } = useFetchData();
   const { products } = data || [];
-  console.log("products", products);
 
   useEffect(() => {
     if (!debouncedSearch) {

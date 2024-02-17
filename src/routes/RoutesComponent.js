@@ -8,7 +8,6 @@ import {
   SingleProductPage,
 } from "../pages";
 import { ProtectedRoute } from "./ProtectedRoute";
-import { useSelector } from "react-redux";
 import { isUserAdmin } from "../helpers";
 import { useUser } from "../hooks/useUser";
 
