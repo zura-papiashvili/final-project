@@ -6,6 +6,7 @@ import { UserIcon } from "./UserIcon";
 import { CartDrawer } from "./CartDrawer";
 import { useCart } from "../../hooks";
 import { GiShoppingCart } from "react-icons/gi";
+import { ProductCategories } from "./ProductCategories";
 
 const StyledAppBar = styled(AppBar)(() => ({
   backgroundColor: "#131921",
@@ -61,6 +62,7 @@ export const Header = () => {
             <LanguageSelect />
           </Box>
         </StyledToolbar>
+        <ProductCategories />
       </StyledAppBar>
       <CartDrawer
         cartItems={cartItems}

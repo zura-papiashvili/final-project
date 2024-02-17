@@ -1,6 +1,9 @@
 import { Box, Drawer, styled } from "@mui/material";
 import React from "react";
-import { LoadingWrapper, Text } from "../atoms";
+import { Button, LoadingWrapper, Text } from "../atoms";
+import { useCart, useUser } from "../../hooks";
+import { useDispatch } from "react-redux";
+import { clearCart, saveCart } from "../../redux";
 
 const StyledCartItem = styled(Box)(() => ({
   width: "400px",
@@ -17,20 +20,27 @@ const StyledImage = styled("img")(() => ({
   borderRadius: 5,
 }));
 
+const StyledButtonContainer = styled(Box)(() => ({
+  display: "flex",
+  justifyContent: "center",
+}));
+
 export const CartDrawer = ({
   isCartDrawerOpen,
   setIsCartDrawerOpen,
   cartItems,
 }) => {
+  const { userData } = useUser();
+  const { isLoading } = useCart();
+  const dispatch = useDispatch();
   return (
     <Drawer
       open={isCartDrawerOpen}
       onClose={() => setIsCartDrawerOpen(false)}
       anchor="right"
     >
-      <LoadingWrapper isLoading={false}>
+      <LoadingWrapper isLoading={isLoading}>
         {cartItems.map((item) => {
-          console.log("cartItems", item);
           const { name, brand, price, image, quantity } = item;
           return (
             <StyledCartItem>
@@ -48,6 +58,25 @@ export const CartDrawer = ({
           );
         })}
       </LoadingWrapper>
+      <StyledButtonContainer>
+        <Button
+          onClick={() => {
+            dispatch(clearCart());
+            setIsCartDrawerOpen(false);
+          }}
+        >
+          Clear Cart
+        </Button>
+        {Boolean(userData) && (
+          <Button
+            onClick={() => {
+              dispatch(saveCart({ userId: userData._id, cartItems }));
+            }}
+          >
+            Save Cart
+          </Button>
+        )}
+      </StyledButtonContainer>
     </Drawer>
   );
 };

@@ -6,7 +6,7 @@ import persistStore from "redux-persist/es/persistStore";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "cart"],
 };
 const rootReducer = combineReducers({
   user: userReducer,

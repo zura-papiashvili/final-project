@@ -15,8 +15,9 @@ const StyledInfoContainer = styled(Box)(() => ({
   padding: "20px 20px",
 }));
 
-export const ProductCard = ({ product }) => {
-  const { image, name, price, _id, brand, category } = product;
+export const ProductCard = (product) => {
+  console.log(product);
+  const { name, price, image, brand } = product.product;
   return (
     <Grid item xs={10} sm={8} md={4} lg={3}>
       <Card

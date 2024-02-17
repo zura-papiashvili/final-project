@@ -4,7 +4,7 @@ import { Avatar, Box, IconButton, Menu, MenuItem, styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import { Button } from "../atoms";
 import { useDispatch } from "react-redux";
-import { logout } from "../../redux";
+import { clearCart, logout } from "../../redux";
 import { getUserInitials } from "../../helpers";
 const StyledBox = styled(Box)(() => ({
   display: "flex",
@@ -50,6 +50,7 @@ export const UserIcon = () => {
                   <Button
                     onClick={() => {
                       dispatch(logout());
+                      dispatch(clearCart());
                     }}
                   >
                     Logout

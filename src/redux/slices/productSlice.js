@@ -43,6 +43,19 @@ export const deleteProduct = createAsyncThunk(
     }
   }
 );
+export const fetchCategoryProducts = createAsyncThunk(
+  "product/fetchCategoryProducts",
+  async ({ categoryName, queryUrl }, { rejectWithValue }) => {
+    try {
+      const method = "get";
+      const endpoint = `/products/categories/${categoryName}${queryUrl}`;
+      const { data } = await axiosInstance[method](endpoint);
+      return data;
+    } catch (error) {
+      return rejectWithValue("Error fetching products");
+    }
+  }
+);
 
 const productSlice = createSlice({
   name: "product",
@@ -52,6 +65,9 @@ const productSlice = createSlice({
     error: null,
     homePageProducts: [],
     selectedProduct: null,
+    productCategories: [],
+    categoryProducts: [],
+    totalPages: 0,
   },
   reducers: {
     setSelectedProduct(state, action) {
@@ -77,6 +93,7 @@ const productSlice = createSlice({
     builder.addCase(fetchHomePageProducts.fulfilled, (state, action) => {
       state.homePageProducts = action.payload.products;
       state.loading = false;
+      state.productCategories = action.payload.categories;
     });
     builder.addCase(fetchHomePageProducts.rejected, (state, action) => {
       state.error = action.payload;
@@ -91,6 +108,20 @@ const productSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(deleteProduct.rejected, (state, action) => {
+      state.error = action.payload;
+      state.loading = false;
+    });
+
+    // fetchCategoryProducts
+    builder.addCase(fetchCategoryProducts.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(fetchCategoryProducts.fulfilled, (state, action) => {
+      state.categoryProducts = action.payload.products;
+      state.loading = false;
+      state.totalPages = action.payload.totalPages;
+    });
+    builder.addCase(fetchCategoryProducts.rejected, (state, action) => {
       state.error = action.payload;
       state.loading = false;
     });
