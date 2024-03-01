@@ -11,8 +11,16 @@ import {
   setSelectedProduct,
 } from "../../../redux";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export const ProductCardActions = ({ product }) => {
+  const handleEditClick = () => {
+    navigate(`/products/${product._id}/edit`);
+    console.log("se ", product.product);
+    dispatch(setSelectedProduct(product.product));
+  };
+  const { t } = useTranslation();
+
   const { userData } = useUser();
   const { cartItems } = useCart();
   const dispatch = useDispatch();
@@ -20,15 +28,8 @@ export const ProductCardActions = ({ product }) => {
   if (isUserAdmin(userData)) {
     return (
       <Box>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            navigate(`/products/${product._id}/edit`);
-            dispatch(setSelectedProduct(product));
-          }}
-        >
-          Edit
+        <Button variant="contained" color="primary" onClick={handleEditClick}>
+          {t("edit")}
         </Button>
         <Button
           variant="contained"
@@ -37,7 +38,7 @@ export const ProductCardActions = ({ product }) => {
             dispatch(deleteProduct({ productId: product._id }));
           }}
         >
-          Delete
+          {t("delete")}
         </Button>
       </Box>
     );

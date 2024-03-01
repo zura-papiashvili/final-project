@@ -7,6 +7,7 @@ import { CartDrawer } from "./CartDrawer";
 import { useCart } from "../../hooks";
 import { GiShoppingCart } from "react-icons/gi";
 import { ProductCategories } from "./ProductCategories";
+import { useTranslation } from "react-i18next";
 
 const StyledAppBar = styled(AppBar)(() => ({
   backgroundColor: "#131921",
@@ -22,6 +23,8 @@ const StyledToolbar = styled(Toolbar)(() => ({
 }));
 
 export const Header = () => {
+  const { t } = useTranslation();
+
   const [isCartDrawerOpen, setIsCartDrawerOpen] = useState(false);
   const { cartItems } = useCart();
   return (
@@ -37,7 +40,7 @@ export const Header = () => {
               fontWeight: "bold",
             }}
           >
-            Home
+            {t("home")}
           </Link>
           <SearchBar
             style={{

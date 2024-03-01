@@ -1,4 +1,12 @@
 {
-  "home": "home page",
-  "save_button": "save"
+  "home": "Home Page",
+  "save_button": "Save",
+  "search": "Search",
+  "name": "Name",
+  "description": "Description",
+  "brand": "Brand",
+  "category": "Category",
+  "price": "Price",
+  "edit": "Edit",
+  "delete": "Delete"
 }

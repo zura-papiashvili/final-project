@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, Loading, Text } from "../atoms";
 import { Autocomplete, Box, TextField, styled } from "@mui/material";
 import { useDebounce, useFetchData } from "../../hooks";
+import { useTranslation } from "react-i18next";
 
 const StyledImage = styled("img")(() => ({
   width: 50,
@@ -14,6 +15,7 @@ export const SearchBar = () => {
   const debouncedSearch = useDebounce(500, searchValue);
   const { getData, loading, data, setState } = useFetchData();
   const { products } = data || [];
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!debouncedSearch) {
@@ -58,7 +60,7 @@ export const SearchBar = () => {
             onChange={(e) => {
               setSearchValue(e.target.value);
             }}
-            label="Search"
+            label={t("search")}
             InputProps={{
               ...params.InputProps,
               type: "search",

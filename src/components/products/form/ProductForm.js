@@ -20,6 +20,7 @@ export const ProductForm = () => {
     mode: "onChange",
     resolver: yupResolver(productFormValidationSchema),
   });
+
   const [image, setImage] = useState("");
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ export const ProductForm = () => {
       await dispatch(
         saveProduct({
           product: { ...data, image },
-          productId: selectedProduct._id,
+          productId: selectedProduct?._id,
         })
       ).unwrap();
       navigate("/");
@@ -61,7 +62,7 @@ export const ProductForm = () => {
             <Input
               name={name}
               onChange={onChange}
-              label="Name"
+              label={t("name")}
               value={value}
               helperText={errors.name?.message}
               error={Boolean(errors.name)}
@@ -79,7 +80,7 @@ export const ProductForm = () => {
             <Input
               name={name}
               onChange={onChange}
-              label="Description"
+              label={t("description")}
               value={value}
               helperText={errors.description?.message}
               error={Boolean(errors.description)}
@@ -98,7 +99,7 @@ export const ProductForm = () => {
             <Input
               name={name}
               onChange={onChange}
-              label="Brand"
+              label={t("brand")}
               value={value}
               helperText={errors.brand?.message}
               error={Boolean(errors.brand)}
@@ -116,7 +117,7 @@ export const ProductForm = () => {
             <Input
               name={name}
               onChange={onChange}
-              label="Category"
+              label={t("category")}
               value={value}
               helperText={errors.category?.message}
               error={Boolean(errors.category)}
@@ -134,7 +135,7 @@ export const ProductForm = () => {
             <Input
               name={name}
               onChange={onChange}
-              label="Price"
+              label={t("price")}
               value={value}
               helperText={errors.price?.message}
               error={Boolean(errors.price)}
@@ -142,13 +143,16 @@ export const ProductForm = () => {
           );
         }}
       />
-      <FileBase64
-        type="file"
-        multiple={false}
-        onDone={({ base64 }) => {
-          setImage(base64);
-        }}
-      />
+      <div style={{ marginTop: "20px" }}>
+        <FileBase64
+          type="file"
+          multiple={false}
+          onDone={({ base64 }) => {
+            setImage(base64);
+          }}
+        />
+      </div>
+
       <Button onClick={handleSubmit(onSubmit)} disabled={!isValid}>
         {t("save_button")}
       </Button>
