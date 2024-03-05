@@ -18,6 +18,11 @@ export const LanguageSelect = () => {
     localStorage.setItem("langCode", langCode);
   }, [i18n, langCode]);
 
+  const handleLanguageChange = (e) => {
+    const selectedLangCode = e.target.value;
+    setLangCode(selectedLangCode);
+  };
+
   return (
     <FormControl
       sx={{
@@ -31,11 +36,7 @@ export const LanguageSelect = () => {
           border: "2px solid blue",
         }}
         value={langCode}
-        onChange={(e) => {
-          setLangCode(e.target.value);
-          window.location.reload();
-        }}
-        defaultValue={langCode}
+        onChange={handleLanguageChange}
       >
         {Object.entries(languageCodes).map(([code, name]) => (
           <MenuItem key={code} value={code}>

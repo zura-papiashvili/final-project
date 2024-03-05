@@ -1,6 +1,5 @@
 import "./App.css";
 import { RoutesComponent } from "./routes";
-import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchHomePageProducts } from "./redux";
@@ -9,7 +8,6 @@ import { Header } from "./components/header";
 import { useUser } from "./hooks";
 
 function App() {
-  const { t } = useTranslation();
   const dispatch = useDispatch();
   const { userData } = useUser();
   useEffect(() => {

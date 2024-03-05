@@ -26,7 +26,7 @@ export const CategoryProductList = () => {
     dispatch(
       fetchCategoryProducts({
         categoryName: category,
-        queryUrl: `?size=1&sort=${sort},desc&page=${page}`,
+        queryUrl: `?size=1&sort=${sort}&page=${page}`,
       })
     );
   }, [sort, page, category, dispatch]);

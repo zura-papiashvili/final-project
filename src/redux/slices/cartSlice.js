@@ -40,7 +40,7 @@ const cartSlice = createSlice({
       state.cartItems = [];
     },
     addToCart(state, action) {
-      const product = action.payload;
+      const product = action.payload.product;
       const existingProduct = state.cartItems.find(
         (item) => item._id === product._id
       );
@@ -57,7 +57,7 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart(state, action) {
-      const productId = action.payload;
+      const productId = action.payload.product._id;
       const existingProduct = state.cartItems.find(
         (item) => item._id === productId
       );

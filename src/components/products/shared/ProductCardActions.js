@@ -16,7 +16,6 @@ import { useTranslation } from "react-i18next";
 export const ProductCardActions = ({ product }) => {
   const handleEditClick = () => {
     navigate(`/products/${product._id}/edit`);
-    console.log("se ", product.product);
     dispatch(setSelectedProduct(product.product));
   };
   const { t } = useTranslation();
@@ -43,9 +42,9 @@ export const ProductCardActions = ({ product }) => {
       </Box>
     );
   }
-
-  const productInCart = cartItems.find((item) => item._id === product._id);
-
+  const productInCart = cartItems.find(
+    (item) => item._id === product.product._id
+  );
   return (
     <Box>
       {!productInCart ? (
@@ -70,7 +69,7 @@ export const ProductCardActions = ({ product }) => {
             variant="contained"
             color="secondary"
             onClick={() => {
-              dispatch(removeFromCart(product._id));
+              dispatch(removeFromCart(product));
             }}
           >
             -
