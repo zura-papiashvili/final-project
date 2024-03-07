@@ -34,7 +34,7 @@ export const ProductCardActions = ({ product }) => {
           variant="contained"
           color="secondary"
           onClick={() => {
-            dispatch(deleteProduct({ productId: product._id }));
+            dispatch(deleteProduct({ productId: product.product._id }));
           }}
         >
           {t("delete")}

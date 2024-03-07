@@ -4,6 +4,7 @@ import { GridContainer, ProductCard } from "../shared";
 import { useProduct, useUser } from "../../../hooks";
 import { Link } from "../../atoms";
 import { Box, styled } from "@mui/system";
+import { isUserAdmin } from "../../../helpers";
 
 const StyledInfoContainer = styled(Box)(() => ({
   display: "flex",
@@ -18,7 +19,7 @@ export const HomePageProducts = () => {
   const { homePageProducts, isLoading } = useProduct();
   return (
     <>
-      {userData && userData.isAdmin && (
+      {userData && isUserAdmin(userData) && (
         <Link to="/products/add">
           <StyledInfoContainer>Add Product</StyledInfoContainer>
         </Link>

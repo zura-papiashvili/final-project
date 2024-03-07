@@ -46,9 +46,10 @@ export const ProductForm = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(setSelectedProduct(null));
-  }, []);
+  // useEffect(() => {
+  //   console.log("1");
+  //   dispatch(setSelectedProduct(null));
+  // }, []);
 
   return (
     <FormContainer>

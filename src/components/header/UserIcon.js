@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useUser } from "../../hooks";
 import { Avatar, Box, IconButton, Menu, MenuItem, styled } from "@mui/material";
-import { Link } from "react-router-dom";
-import { Button } from "../atoms";
+import { Button, Link } from "../atoms";
 import { useDispatch } from "react-redux";
 import { clearCart, logout } from "../../redux";
-import { getUserInitials } from "../../helpers";
+import { getUserInitials, isUserAdmin } from "../../helpers";
+import { useTranslation } from "react-i18next";
+
 const StyledBox = styled(Box)(() => ({
   display: "flex",
   flexDirection: "column",
@@ -58,7 +59,7 @@ export const UserIcon = () => {
                 </MenuItem>
               </>
             )}
-            {userData && userData.isAdmin && (
+            {userData && isUserAdmin(userData) && (
               <MenuItem>
                 <Link to="/products/add">Add Product</Link>
               </MenuItem>
